@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+function arg_file_list(dir, otherDirs) {
+	var list = [];
+	list[0] = dir;
+	if (otherDirs) {
+		otherDirs.forEach(function(item, key) {
+			list[key+1] = item;
+		});
+	}
+
+	//console.log(list);
+
+	return list;
+}
+
+var tongwen = require('tongwen-core');
+
+var program = require('commander'); //https://www.npmjs.com/package/commander
+
+program.version('0.1.0');
+
+program
+	.command('s2t <dir> [otherDirs...]')
+	.action(function(dir, otherDirs) {
+		tongwen.s2tEach(arg_file_list(dir, otherDirs));
+	});
+;
+
+program
+	.command('t2s <dir> [otherDirs...]')
+	.action(function(dir, otherDirs) {
+		tongwen.t2sEach(arg_file_list(dir, otherDirs));
+	});
+;
+
+
+program.parse(process.argv);
