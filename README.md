@@ -1,5 +1,14 @@
 # package-node-tongwen
-Nodejs 繁簡轉換 - 使用新同文堂(TongWen)
+
+## Nodejs 繁簡轉換 - 使用新同文堂(TongWen)
+
+這個專案可以使用下指令，批次轉換的方式，來做檔案文字的「繁簡轉換」。
+
+「繁簡轉換的核心」，來自「[新同文堂](https://github.com/softcup/New-Tongwentang-for-Web/blob/master/tongwen_core.js)」，
+
+移植的「Prototype」可以參考「[prototype-tongwen-nodejs](https://github.com/foreachsam/prototype-tongwen-nodejs)」這個專案。
+
+若要讓「[Atom](https://github.com/atom/atom)」，可以做「繁簡轉換」，可以參考「[package-node-tongwen](https://github.com/foreachsam/package-node-tongwen)」這個專案。
 
 ## 如何安裝
 
