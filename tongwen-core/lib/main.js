@@ -64,32 +64,33 @@ var Converter = {
 
 				return this;
 			},
+			
 			/*
-            init: function() {
+			init: function() {
 
-                var name = 'init_' + this.getType();
-                var func = this[name];
+				var name = 'init_' + this.getType();
+				var func = this[name];
 
-                if (!func) {
-                    return this;
-                }
+				if (!func) {
+					return this;
+				}
 
-                func.apply(this);
+				func.apply(this);
 
-                return this;
-            },
+				return this;
+			},
 
-            init_S2T: function() {
-                //console.log(this);
-                //console.log('S2T');
+			init_S2T: function() {
+				//console.log(this);
+				//console.log('S2T');
 
-            },
+			},
 
-            init_T2S: function() {
-                //console.log(this);
-                //console.log('T2S');
+			init_T2S: function() {
+				//console.log(this);
+				//console.log('T2S');
 
-            },
+			},
 			*/
 
 			_Old: null,
@@ -130,43 +131,43 @@ var Converter = {
 				return '';
 			},
 
-            _Type: null,
+			_Type: null,
 
-            getType: function() {
-            	if (this._Type === null) {
-            		this._Type = this.defType();
-            	}
+			getType: function() {
+				if (this._Type === null) {
+					this._Type = this.defType();
+				}
 
-            	return this._Type;
-            },
+				return this._Type;
+			},
 
-            setType: function(val) {
-            	this._Type = val;
-            	return this;
-            },
+			setType: function(val) {
+				this._Type = val;
+				return this;
+			},
 
-            defType: function() {
-            	return 'S2T';
-            },
+			defType: function() {
+				return 'S2T';
+			},
 
-            _Table: null,
+			_Table: null,
 
-            getTable: function() {
-            	if (this._Table === null) {
-            		this._Table = this.defTable();
-            	}
+			getTable: function() {
+				if (this._Table === null) {
+					this._Table = this.defTable();
+				}
 
-            	return this._Table;
-            },
+				return this._Table;
+			},
 
-            setTable: function(val) {
-            	this._Table = val;
-            	return this;
-            },
+			setTable: function(val) {
+				this._Table = val;
+				return this;
+			},
 
-            defTable: function() {
-            	return Converter.refTable(this.getType());
-            },
+			defTable: function() {
+				return Converter.refTable(this.getType());
+			},
 
 			_MaxLen: null,
 
@@ -201,85 +202,85 @@ var Converter = {
 		return this._Instance;
 	},
 
-    _Table: {
-        S2T: null,
-        T2S: null,
-        S2T_OnlyMap: null,
-        T2S_OnlyMap: null
-    },
+	_Table: {
+		S2T: null,
+		T2S: null,
+		S2T_OnlyMap: null,
+		T2S_OnlyMap: null
+	},
 
-    _MaxLen: {
-        S2T: null,
-        T2S: null,
-        S2T_OnlyMap: null,
-        T2S_OnlyMap: null
-    },
+	_MaxLen: {
+		S2T: null,
+		T2S: null,
+		S2T_OnlyMap: null,
+		T2S_OnlyMap: null
+	},
 
-    refMaxLen: function(key) {
-        var rtn = this._MaxLen[key];
+	refMaxLen: function(key) {
+		var rtn = this._MaxLen[key];
 
-        if (rtn === null) {
-            rtn = 0;
-        }
+		if (rtn === null) {
+			rtn = 0;
+		}
 
-        return rtn;
-    },
+		return rtn;
+	},
 
-    putMaxLen: function(key, val) {
-        this._MaxLen[key] = val;
-        return this;
-    },
+	putMaxLen: function(key, val) {
+		this._MaxLen[key] = val;
+		return this;
+	},
 
-    refTable: function(key) {
-        var table = this._Table[key];
-        if (table === null) {
-            table = this.findTable(key);
-            this._Table[key] = table;
-        }
+	refTable: function(key) {
+		var table = this._Table[key];
+		if (table === null) {
+			table = this.findTable(key);
+			this._Table[key] = table;
+		}
 
-        return this._Table[key];
-    },
+		return this._Table[key];
+	},
 
-    mergeTable: function(newTable, oldTable, len) {
+	mergeTable: function(newTable, oldTable, len) {
 
-        for (var i in newTable) {
-            oldTable[i] = newTable[i];
-    		len = Math.max(len, newTable[i].length);
-    	}
+		for (var i in newTable) {
+			oldTable[i] = newTable[i];
+			len = Math.max(len, newTable[i].length);
+		}
 
-        return len;
-    },
+		return len;
+	},
 
-    findTable: function(key) {
-        var name = 'findTable_' + key;
-        var func = this[name];
+	findTable: function(key) {
+		var name = 'findTable_' + key;
+		var func = this[name];
 
-        if (!func) {
-            return {};
-        }
+		if (!func) {
+			return {};
+		}
 
-        return func.apply(this);
-    },
+		return func.apply(this);
+	},
 
-    findTable_S2T_OnlyMap: function() {
+	findTable_S2T_OnlyMap: function() {
 		var rtn = {};
 		var len = 1;
 		var map = this.findMap_S2T();
 		len = this.mergeTable(map, rtn, len);
 		this.putMaxLen('S2T_OnlyMap', len);
-        return rtn;
-    },
+		return rtn;
+	},
 
-    findTable_T2S_OnlyMap: function() {
+	findTable_T2S_OnlyMap: function() {
 		var rtn = {};
 		var len = 1;
 		var map = this.findMap_T2S();
 		len = this.mergeTable(map, rtn, len);
 		this.putMaxLen('T2S_OnlyMap', len);
-        return rtn;
-    },
+		return rtn;
+	},
 
-    findTable_S2T: function() {
+	findTable_S2T: function() {
 		var rtn = {};
 		var len = 1;
 		var map = this.findMap_S2T();
@@ -287,10 +288,10 @@ var Converter = {
 		len = this.mergeTable(map, rtn, len);
 		len = this.mergeTable(phrase, rtn, len);
 		this.putMaxLen('S2T', len);
-        return rtn;
-    },
+		return rtn;
+	},
 
-    findTable_T2S: function() {
+	findTable_T2S: function() {
 		var rtn = {};
 		var len = 1;
 		var map = this.findMap_T2S();
@@ -298,24 +299,24 @@ var Converter = {
 		len = this.mergeTable(map, rtn, len);
 		len = this.mergeTable(phrase, rtn, len);
 		this.putMaxLen('T2S', len);
-        return rtn;
-    },
+		return rtn;
+	},
 
-    findMap_S2T: function() {
-        return require('../table/Map/S2T.json');
-    },
+	findMap_S2T: function() {
+		return require('../table/Map/S2T.json');
+	},
 
-    findMap_T2S: function() {
-        return require('../table/Map/T2S.json');
-    },
+	findMap_T2S: function() {
+		return require('../table/Map/T2S.json');
+	},
 
-    findPhrase_S2T: function() {
-        return require('../table/Phrase/S2T.json');
-    },
+	findPhrase_S2T: function() {
+		return require('../table/Phrase/S2T.json');
+	},
 
-    findPhrase_T2S: function() {
-        return require('../table/Phrase/T2S.json');
-    },
+	findPhrase_T2S: function() {
+		return require('../table/Phrase/T2S.json');
+	},
 
 	_End: 'Class:Converter'
 };
@@ -323,15 +324,15 @@ var Converter = {
 module.exports.Converter = Converter;
 
 function newConverter() {
-    var rtn = Converter.newInstance();
+	var rtn = Converter.newInstance();
 
-    return rtn;
+	return rtn;
 }
 
 module.exports.newConverter = newConverter;
 
 function s2t(str) {
-    //console.log('s2t');
+	//console.log('s2t');
 	var converter = newConverter();
 
 	converter
@@ -346,7 +347,7 @@ function s2t(str) {
 module.exports.s2t = s2t;
 
 function t2s(str) {
-    //console.log('t2s');
+	//console.log('t2s');
 	var converter = newConverter();
 
 	converter
@@ -362,7 +363,7 @@ module.exports.t2s = t2s;
 
 
 module.exports.s2t_onlymap = function(str) {
-    //console.log('s2t_onlymap');
+	//console.log('s2t_onlymap');
 	var converter = newConverter();
 
 	converter
@@ -375,7 +376,7 @@ module.exports.s2t_onlymap = function(str) {
 }
 
 module.exports.t2s_onlymap = function(str) {
-    //console.log('t2s_onlymap');
+	//console.log('t2s_onlymap');
 	var converter = newConverter();
 
 	converter
